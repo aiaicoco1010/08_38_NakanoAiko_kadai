@@ -7,7 +7,7 @@ $id = $_GET["id"];
   $pdo = db_con();   //functionsの呼び出し
 
   //２．データ登録SQL作成
-  $stmt = $pdo->prepare("DELETE FROM gs_user_table WHERE id=:id");
+  $stmt = $pdo->prepare("DELETE FROM gs_an_table WHERE id=:id");
   $stmt ->bindValue(":id" , $id , PDO::PARAM_INT);
   $status = $stmt->execute();
   
@@ -18,7 +18,14 @@ $id = $_GET["id"];
     error_db_info($stmt);  //functionsの呼び出し
   }else{
     //Selectデータの数だけ自動でループしてくれる
-    header ("Location: user_list.php");
+    header ("Location: select.php");
     exit();
+
+    // while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){
+    //   $view .='<p>';
+    //   $view .= '<a href="detail.php?id='.$result["id"].'">';
+    //   $view .= $result["name"]."[".$result["indate"]."]";
+    //   $view .='</a>';
+    //   $view .='</p>';
     }
 ?>

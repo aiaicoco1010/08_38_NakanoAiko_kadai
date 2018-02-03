@@ -7,7 +7,7 @@ try {
 }
 
 //２．データ登録SQL作成
-$stmt = $pdo->prepare("SELECT * FROM gs_user_table");
+$stmt = $pdo->prepare("SELECT * FROM gs_an_table");
 $status = $stmt->execute();
 
 //３．データ表示
@@ -20,11 +20,11 @@ if($status==false){
   //Selectデータの数だけ自動でループしてくれる
   while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){
     $view .='<p>';
-    $view .= '<a href="user_update_page.php?id='.$result["id"].'">';
-    $view .= $result["name"]."/".$result["lid"]."/".$result["lpw"]."/".$result["kanri_flg"]."/".$result["life_flg"];
+    $view .= '<a href="detail.php?id='.$result["id"].'">';
+    $view .= $result["name"]."[".$result["indate"]."]";
     $view .='</a>';
     $view .=' ';
-    $view .= '<a href="user_delete.php?id='.$result["id"].'">';
+    $view .= '<a href="delete.php?id='.$result["id"].'">';
     $view .= '[削除]';
     $view .='</a>';
     $view .='</p>';
@@ -32,13 +32,14 @@ if($status==false){
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ユーザー一覧</title>
+<title>フリーアンケート表示</title>
 <link rel="stylesheet" href="css/range.css">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <style>div{padding: 10px;font-size:16px;}</style>
@@ -49,7 +50,7 @@ if($status==false){
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-      <a class="navbar-brand" href="index_user.php">データ登録はこちら</a>
+      <a class="navbar-brand" href="index.php">データ登録</a>
     </div>
   </nav>
 </header>

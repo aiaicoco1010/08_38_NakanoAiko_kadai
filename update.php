@@ -3,8 +3,8 @@
 if(
   !isset($_POST["id"]) || $_POST["id"]=="" ||
   !isset($_POST["name"]) || $_POST["name"]=="" ||
-  !isset($_POST["lid"]) || $_POST["lid"]=="" ||
-  !isset($_POST["lpw"]) || $_POST["lpw"]==""
+  !isset($_POST["email"]) || $_POST["email"]=="" ||
+  !isset($_POST["naiyou"]) || $_POST["naiyou"]==""
 ){
   exit('ParamError');
 }
@@ -12,8 +12,8 @@ if(
 //1. POSTデータ取得
 $id     =$_POST["id"];
 $name   = $_POST["name"];
-$lid  = $_POST["lid"];
-$lpw = $_POST["lpw"];
+$email  = $_POST["email"];
+$naiyou = $_POST["naiyou"];
 
 //2. DB接続します(エラー処理追加)
 try {
@@ -24,11 +24,11 @@ try {
 
 
 //３．データ登録SQL作成
-$stmt = $pdo->prepare("UPDATE gs_user_table SET name = :name, lid = :lid, lpw=:lpw WHERE id=:id");
+$stmt = $pdo->prepare("UPDATE gs_an_table SET name = :name, email = :email, naiyou=:naiyou WHERE id=:id");
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-$stmt->bindValue(':lid', $lid, PDO::PARAM_STR);
-$stmt->bindValue(':lpw', $lpw, PDO::PARAM_STR);
+$stmt->bindValue(':email', $email, PDO::PARAM_STR);
+$stmt->bindValue(':naiyou', $naiyou, PDO::PARAM_STR);
 $status = $stmt->execute();
 
 //４．データ登録処理後
@@ -38,7 +38,11 @@ if($status==false){
   exit("QueryError:".$error[2]);
 }else{
   //５．index.phpへリダイレクト
-  header("Location: user_list.php");
+  header("Location: select.php");
   exit;
 }
+?>
+
+
+
 ?>
